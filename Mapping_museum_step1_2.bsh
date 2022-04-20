@@ -3,13 +3,14 @@
 #SBATCH -p core
 #SBATCH -n 5
 #SBATCH -t 5-20:00:00
-#SBATCH -J Mapping_step1
+#SBATCH -J Mapping_step0
 
 #job id: $SLURM_JOB_ID
 #job name (-J): $SLURM_JOB_NAME
 #tmp directory: $SNIC_TMP
 
-# ${1} refers to the read files passed to this script as an argument
+# Step 0: maps merged reads to reference assembly
+#################################################
 
 module load bioinfo-tools
 module load bwa/0.7.13
