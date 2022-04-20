@@ -9,6 +9,9 @@
 #job name (-J): $SLURM_JOB_NAME
 #tmp directory: $SNIC_TMP
 
+# Trimming and merging of raw reads
+#################################################
+
 module load bioinfo-tools
 module load SeqPrep
 
