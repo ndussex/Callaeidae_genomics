@@ -17,9 +17,6 @@
 #historical
 #for f in $(ls AUC2*.rmdupPS.bam | grep AUC2 | sed 's/.bam//g'); do sbatch /proj/sllstore2017093/b2016263/b2016263/private/Callaeidae/scripts/mapping_to_ref/step1.1_readgroup_fix.sh $f; done
 
-#modern
-#for f in $(ls bwa*.rmdup.sorted.bam  | sed 's/.bam//g'); do sbatch /proj/sllstore2017093/b2016263/b2016263/private/Callaeidae/scripts/mapping_to_ref/step1.1_readgroup_fix.sh $f; done
-#variables from command line
 file=$1
 
 #java heap size: 2GB less than max. memory, i.e. 6GB per core
