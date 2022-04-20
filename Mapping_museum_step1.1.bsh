@@ -9,8 +9,8 @@
 #job name (-J): $SLURM_JOB_NAME
 #tmp directory: $SNIC_TMP
 
-# Step 0: maps merged reads to reference assembly
-#################################################
+# Step 1.1: maps merged reads to reference assembly
+###################################################
 
 module load bioinfo-tools
 module load bwa/0.7.13
