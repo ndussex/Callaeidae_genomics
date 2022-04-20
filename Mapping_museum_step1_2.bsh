@@ -1,0 +1,51 @@
+#!/bin/bash -l
+#SBATCH -A snic2017-1-555
+#SBATCH -p core
+#SBATCH -n 5
+#SBATCH -t 5-20:00:00
+#SBATCH -J Mapping_step1_2
+
+#job id: $SLURM_JOB_ID
+#job name (-J): $SLURM_JOB_NAME
+#tmp directory: $SNIC_TMP
+
+# ${1} refers to the read files passed to this script as an argument
+
+module load bioinfo-tools
+module load bwa/0.7.13
+module load samtools/1.3
+
+#Usage
+#cd /proj/sllstore2017093/b2016263/b2016263_nobackup/Callaeidae/deepseq_data/trimmed_reads
+#for i in $(ls *merged.fq.gz | sed 's/_merged.fq.gz//g'|uniq); do sbatch /proj/sllstore2017093/b2016263/b2016263/private/Callaeidae/scripts/mapping_to_ref/Mapping_museum_step1_2.bsh  $i; done
+
+# copy files from home to tmp directory
+cp /proj/sllstore2017093/b2016263/b2016263_nobackup/Callaeidae/deepseq_data/trimmed_reads/*merged.fq.gz ${SNIC_TMP}/
+cp /proj/sllstore2017093/b2016263/b2016263/private/Callaeidae/Kokako_genome/Kokako_improved/pseudochromosomes.fasta*  ${SNIC_TMP}/
+cp /proj/sllstore2017093/b2016263/b2016263/private/Callaeidae/Kokako_genome/B10K-Callaeas_wilsoni.genomic.fa* ${SNIC_TMP}/
+## Move to tmp/ directory
+cd ${SNIC_TMP}
+
+REF=pseudochromosomes.fasta
+REF_original=B10K-Callaeas_wilsoni.genomic.fa
+
+bwa aln -l 16500 -n 0.01 -o 2 -t 10 $REF_original ${1}_merged.fq.gz > ${1}.sai
+bwa samse $REF_original  ${1}.sai ${1}_merged.fq.gz > ${1}.sam
+
+#### convert sam to bam; sort; rmdup; mapping stats
+
+samtools view -bSq 20 ${1}.sam > ${1}.QC.bam
+samtools sort ${1}.QC.bam -o ${1}.sorted.bam
+samtools index ${1}.sorted.bam
+samtools view -h  ${1}.sorted.bam | python /home/nicd/bin/samremovedup.py | samtools view -bS - >  ${1}_originalref.rmdupPS.bam
+samtools index ${1}_originalref.rmdupPS.bam
+samtools flagstat ${1}_originalref.rmdupPS.bam > ${1}_stats_Q.txt
+
+
+####
+## Copy .bam files to nobackup
+####
+cp ${SNIC_TMP}/*.rmdupPS.bam  /proj/sllstore2017093/b2016263/b2016263_nobackup/Callaeidae/deepseq_data/bams
+cp ${SNIC_TMP}/*.txt /proj/sllstore2017093/b2016263/b2016263_nobackup/Callaeidae/deepseq_data/bams
+
+
