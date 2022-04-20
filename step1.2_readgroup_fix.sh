@@ -9,6 +9,9 @@
 #job name (-J): $SLURM_JOB_NAME
 #tmp directory: $SNIC_TMP
 
+# Step 1.2: adding read group to bam files
+#################################################
+
 #########Usage#########
 #cd /proj/sllstore2017093/b2016263/b2016263_nobackup/Callaeidae/deepseq_data/bams
 #historical
