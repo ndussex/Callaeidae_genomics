@@ -3,7 +3,7 @@
 #SBATCH -p core
 #SBATCH -n 5
 #SBATCH -t 5-20:00:00
-#SBATCH -J Mapping_step1_2
+#SBATCH -J Mapping_step1
 
 #job id: $SLURM_JOB_ID
 #job name (-J): $SLURM_JOB_NAME
