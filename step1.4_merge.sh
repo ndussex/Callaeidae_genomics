@@ -8,6 +8,9 @@
 #job name (-J): $SLURM_JOB_NAME
 #tmp directory: $SNIC_TMP
 
+# Step 1.4: merge different indexes (reads) for each genome
+###########################################################
+
 #java heap size: 2GB less than max. memory, i.e. 6GB per core
 mem=6g
 bams="/proj/sllstore2017093/b2016263/b2016263_nobackup/Callaeidae/deepseq_data/bams"
