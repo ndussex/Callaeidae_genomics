@@ -8,6 +8,9 @@
 #job name (-J): $SLURM_JOB_NAME
 #tmp directory: $SNIC_TMP
 
+# Step 1.5: realign reads around indels
+#######################################
+
 #java heap size: 2GB less than max. memory, i.e. 6GB per core
 mem=36g
 bams="/proj/sllstore2017093/b2016263/b2016263_nobackup/Callaeidae/deepseq_data/bams"
